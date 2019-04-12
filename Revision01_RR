@@ -1,0 +1,26 @@
+#include<iostream>
+#include<stdlib.h>
+using namespace std;
+int S[50];
+int Arrival[50];
+string P[100];
+static int count=0;
+int s = 1;
+int Student(int j);
+int main(){
+	system("cls");
+	int n;
+	cout<<"\t\t\t\t\t\t\t\t:Please Enter Your Choice:\n\n\t\t\t\t\t\t\t\t1:Student\n\t\t\t\t\t\t\t\t2:Faculty.";
+	cout<<"\n\n\t\t\t\t\t\t\t\tYour Choice: ";
+	cin>>n;
+	if(n==1){
+		Student(n);
+	}
+	else if(n==2){
+		Faculty(n);
+	}
+	else{
+		cout<<"\n\n\t\t\t\t\t\t\t\tERROR: Invalid Input!\n";
+		exit(1);
+	}
+}
