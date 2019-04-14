@@ -31,7 +31,7 @@ int main(){
 	}
 	cout<<"\t\t\t\t\t\t\t\t:Processing Requests:\n\n";
 	Solve();
-	int hy;
+	string hy;
 	cout<<"Enter any key to print table: ";cin>>hy;
 	Table();
 }
@@ -49,7 +49,7 @@ int Student(int j){
 	P[count]="P";
 	count++;
 	cout<<"\n\n\t\t\t\t\t\t\t\tStatus: Data Stored:\n\t\t\t\t\t\t\t\t-------------------";
-	cout<<"\n\n\t\t\t\t\t\t\t\t1:Enter new data.\n";
+	cout<<"\n\n\t\t\t\t\t\t\t\t1:Enter new Query.\n";
 	cout<<"\t\t\t\t\t\t\t\t2:Main Menu.\n";
 	cout<<"\t\t\t\t\t\t\t\t3:Done\n\t\t\t\t\t\t\t\t4:Exit\n\n\t\t\t\t\t\t\t\tYour Choice: ";
 	cin>>ans;
@@ -72,7 +72,7 @@ int Faculty(int j){
 	P[count] = "R";
 	count++;
     cout<<"\n\n\t\t\t\t\t\t\t\tSTATUS: Data Stored.\n\t\t\t\t\t\t\t\t-------------------";
-	cout<<"\n\n\t\t\t\t\t\t\t\t1:Enter new data.\n";
+	cout<<"\n\n\t\t\t\t\t\t\t\t1:Enter new Query.\n";
 	cout<<"\t\t\t\t\t\t\t\t2:Main Menu.\n";
 	cout<<"\t\t\t\t\t\t\t\t3:Done\n\t\t\t\t\t\t\t\t4:Exit\n\n\t\t\t\t\t\t\t\tYour Choice: ";
 	cin>>ans;
@@ -120,6 +120,7 @@ int Solve(){
 
 int Table(){
 	system("cls");
+	float avg,sum2=0;
 	for(int i=0;i<count;i++){
 		TAT[i] = CT[i]-Arrival[i];
 		WT[i] = TAT[i]-T[i];
@@ -129,8 +130,14 @@ int Table(){
 	for(int i=0;i<count;i++){
 		cout<<"\t\t\t"<<P[i]<<i+1<<"\t\t"<<Arrival[i]<<"\t\t "<<T[i]<<"\t\t"<<CT[i]<<"\t\t  "<<TAT[i]<<"\t\t    "<<WT[i]<<"\n";
 	}
-	int ans;
-	cout<<"\n\n\t\t\t\t\t\t\t\t1:Main Menu\n\t\t\t\t\t\t\t\t2:Exit\n\n\t\t\t\t\t\t\t\tYour Choice: ";cin>>ans;
-	if(ans==1){main();}
+	for(int i=0;i<count;i++){
+		sum2 = sum2+WT[i];
+	}
+	avg = sum2/count;
+	cout<<"\n\n\t\t\t\t\t\t\t\tAverage Waiting Time: "<<avg<<"\n\t\t\t\t\t\t\t\t--------------------";
+	int hy;
+	cout<<"\n\n\t\t\t\t\t\t\t\t1:Main Menu\n\t\t\t\t\t\t\t\t2:Exit\n\n\t\t\t\t\t\t\t\tYour Choice: ";
+	cin>>hy;
+	if(hy==1){main();}
 	else{exit(1);}
 }
