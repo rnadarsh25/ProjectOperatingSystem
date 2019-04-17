@@ -1,0 +1,143 @@
+#include<iostream>
+#include<stdlib.h>
+using namespace std;
+int S[50];
+int T[50];
+int Arrival[50];
+int TAT[50],WT[50];
+int CT[50];
+string P[100];
+static int count=0,check=0;
+int s = 1,f = 1,v=0;
+int Faculty(int j);
+int Student(int j);
+int Table();
+int Solve();
+int main(){
+	system("cls");
+	int n;
+	cout<<"\t\t\t\t\t\t\t\t:Please Enter Your Choice:\n\n\t\t\t\t\t\t\t\t1:Student\n\t\t\t\t\t\t\t\t2:Faculty.";
+	cout<<"\n\n\t\t\t\t\t\t\t\tYour Choice: ";
+	cin>>n;
+	if(n==1){
+		Student(n);
+	}
+	else if(n==2){
+		Faculty(n);
+	}
+	else{
+		cout<<"\n\n\t\t\t\t\t\t\t\tERROR: Invalid Input!\n";
+		exit(1);
+	}
+	cout<<"\t\t\t\t\t\t\t\t:Processing Requests:\n\n";
+	Solve();
+	string hy;
+	cout<<"Enter any key to print table: ";cin>>hy;
+	Table();
+}
+
+int Student(int j){
+	system("cls");
+	cout<<"\t\t\t\t\t\t\t\tWelcome! Do Enter the folowing data:\n\n";
+	int ans;
+	//node *r1;
+	cout<<"\t\t\t\t\t\t\t\t\tP"<<s<<": ";
+	s++;
+	cout<<"Arrival Time: ";cin>>Arrival[count];
+	cout<<"\t\t\t\t\t\t\t\t\t    Burst Time: ";cin>>S[count];
+    T[count] = S[count];
+	P[count]="P";
+	count++;
+	cout<<"\n\n\t\t\t\t\t\t\t\tStatus: Data Stored:\n\t\t\t\t\t\t\t\t-------------------";
+	cout<<"\n\n\t\t\t\t\t\t\t\t1:Enter new Query.\n";
+	cout<<"\t\t\t\t\t\t\t\t2:Main Menu.\n";
+	cout<<"\t\t\t\t\t\t\t\t3:Done\n\t\t\t\t\t\t\t\t4:Exit\n\n\t\t\t\t\t\t\t\tYour Choice: ";
+	cin>>ans;
+	if(ans==1){Student(j);}
+	else if(ans==2){main();}
+	else if(ans==3){return 0;}
+	else{exit(1);}
+}
+
+int Faculty(int j){
+	system("cls");
+	cout<<"\t\t\t\t\t\t\t\tWelcome! Do Enter Burst time:\n\n";
+	int ans;
+	//node *r1;
+	cout<<"\t\t\t\t\t\t\t\t\tR"<<f<<": ";
+	f++;
+	cout<<"Arrival Time: ";cin>>Arrival[count];
+	cout<<"\t\t\t\t\t\t\t\t\t    Burst Time: ";cin>>S[count];
+	T[count]=S[count];
+	P[count] = "R";
+	count++;
+    cout<<"\n\n\t\t\t\t\t\t\t\tSTATUS: Data Stored.\n\t\t\t\t\t\t\t\t-------------------";
+	cout<<"\n\n\t\t\t\t\t\t\t\t1:Enter new Query.\n";
+	cout<<"\t\t\t\t\t\t\t\t2:Main Menu.\n";
+	cout<<"\t\t\t\t\t\t\t\t3:Done\n\t\t\t\t\t\t\t\t4:Exit\n\n\t\t\t\t\t\t\t\tYour Choice: ";
+	cin>>ans;
+	if(ans==1){Faculty(j);}
+	else if(ans==2){main();}
+	else if(ans==3){return 0;}
+	else{exit(1);}
+}
+
+int Solve(){
+	system("cls");
+	cout<<"\t\t\t\t\t\tProcessing of Queries:(P: Student Request|| R: Faculty Request)\n\n";
+	int max=-1;
+	for(int i=0;i<count;i++){
+		if(S[i]>max){
+			max = S[i];
+		}
+	}
+    while(max>0){
+	for(int i=0;i<count;i++){
+		if(S[i]!=0){
+			cout<<"\n"<<P[i]<<i+1;
+		}
+		for(int j=0;j<2;j++){
+			if(S[i]<=0){break;}
+			else{//(S[i]!=-1)
+			if(S[i]==max){
+				max--;
+			}
+			cout<<"\t"<<S[i]<<"\n";
+			S[i] = S[i]-1;
+			check++; 
+		  }
+		  if(S[i]==0){
+		  	CT[i]=check;
+		  	break;
+		  	v++;
+		  }
+		}
+		
+	}	
+  }
+  return 0;
+}
+
+int Table(){
+	system("cls");
+	float avg,sum2=0;
+	for(int i=0;i<count;i++){
+		TAT[i] = CT[i]-Arrival[i];
+		WT[i] = TAT[i]-T[i];
+	}
+	cout<<"\t\t\t\t\t\t\t\t: Table :\n\n";
+	cout<<"\t\t\tPROCESS\t    ARRIVAL TIME     BURST TIME\t   COMPLETION TIME   TURNAROUND TIME\tWAITING TIME\n\n";
+	for(int i=0;i<count;i++){
+		cout<<"\t\t\t"<<P[i]<<i+1<<"\t\t"<<Arrival[i]<<"\t\t "<<T[i]<<"\t\t"<<CT[i]<<"\t\t  "<<TAT[i]<<"\t\t    "<<WT[i]<<"\n";
+	}
+	for(int i=0;i<count;i++){
+		sum2 = sum2+WT[i];
+	}
+	avg = sum2/count;
+	cout<<"\n\n\t\t\t\t\t\t\t\tAverage Waiting Time: "<<avg<<"\n\t\t\t\t\t\t\t\t--------------------";
+	int hy;
+	cout<<"\n\n\t\t\t\t\t\t\t\t1:Main Menu\n\t\t\t\t\t\t\t\t2:Exit\n\n\t\t\t\t\t\t\t\tYour Choice: ";
+	cin>>hy;
+	if(hy==1){main();}
+	else{exit(1);}
+}
